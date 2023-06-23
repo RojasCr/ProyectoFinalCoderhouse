@@ -1,14 +1,16 @@
 const CustomRouter = require("../routers/CustomRouter");
-const UserManager = require("../dao/mongoManager/MongoUserDao");
-//const { compareCrypt } = require("../../utils/cryptPassword");
+
 const jwt = require("jsonwebtoken")
 const { generateToken } = require("../utils/jwt.utils");
 const passport = require("passport");
-const { sendMail } = require("../utils/nodeMailer/nodeMailer");
+
 const { compareCrypt } = require("../utils/cryptPassword");
 const SendMail = require("../utils/nodeMailer/nodeMailer");
+const Users = require("../repositories");
 
-const userManager = new UserManager();
+
+
+//const userManager = new UserManager();
 
 class AuthRouter extends CustomRouter{
     init(){
@@ -21,7 +23,8 @@ class AuthRouter extends CustomRouter{
                    
                 res.cookie("jwt", response.token).cookie("user", response.userInfo).redirect("/products");
             } catch (error) {
-                req.logger.error("Usuario no autenticado")
+                req.logger.error("Usuario no autenticado");
+                res.sendUserError("Tu usuario y/o constraseña no coinciden")
             }
         })
 
@@ -47,7 +50,7 @@ class AuthRouter extends CustomRouter{
         this.get("/logout", ["USER", "PREMIUM", "ADMIN"], async (req, res) => {
             
             const { email } = req.user
-            await userManager.refreshConnection(email);
+            await Users.refreshConnection(email);
             
             req.session.destroy(err => {
                 if(err){
@@ -60,28 +63,34 @@ class AuthRouter extends CustomRouter{
     
         });
 
-        this.post("/sendMail", ["PUBLIC"], (req, res) => {
+        this.post("/sendMail", ["PUBLIC"], async(req, res) => {
             const { email } = req.body
+
+            const user = await Users.findUser(email);
+
+            if(!user){
+                return res.sendUserError("Este email no está registrado")
+            }
 
             SendMail.restorePass(email);
             
-            res.json({message: "Mail enviado"});
+            res.sendSuccess("Mail enviado");
         })
 
         this.patch("/restore", ["PUBLIC"], async (req, res) => {
             try {
                 const { email, newPassword } = req.body;
 
-                const user = await userManager.findUser(email);
+                //const user = await Users.findUser(email);
 
-                const isRepeated = compareCrypt(newPassword, user.password);
+                //const isRepeated = compareCrypt(newPassword, user.password);
 
-                if(isRepeated){
+                /*if(isRepeated){
                     return res.json({status: "error", message: "El password no puede ser el mismo"})
-                }
+                }*/
 
-                await userManager.updateUser(email, newPassword);
-                return res.json({status: "success", message: "Contraseña restaurada"});
+                await Users.updateUser(email, newPassword);
+                return res.sendSuccess("Contraseña restaurada");
             } catch (error) {
                 console.log(error);
             }

@@ -96,27 +96,27 @@ class HandlebarsRouter extends CustomRouter{
 
 
         this.get("/signup", ["PUBLIC"],(req, res) => {
-            res.render("signup")
+            res.render("signup", {style: "css/signup.css"})
         });
 
         this.get("/login", ["PUBLIC"], (req, res) => {
-            res.render("login")
+            res.render("login", {style: "css/login.css"});
         });
 
         this.get("/restore", ["PUBLIC"], (req, res) => {
-            res.render("sendMail",{})
+            res.render("sendMail", {style: "css/sendMail.css"})
         })
 
-        this.get("/restorePassword/:token", ["PUBLIC"], (req, res) => {
+        this.get("/restorePassword", ["PUBLIC"], (req, res) => {
             //const { restoringMail } = req.cookies;
-            const { token } = req.params;
+            const { token } = req.query;
 
             jwt.verify(token, "secretMail", (error) => {
                 if(error){
                     return res.redirect("/restore")
                 }
-                res.render("restorePassword", {});
             });
+            res.render("restorePassword");
 
             
         });

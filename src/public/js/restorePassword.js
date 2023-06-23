@@ -24,18 +24,18 @@ form.addEventListener("submit", (e) => {
     .then(response => response.json())
     .then(data => {
 
-        if(data.status === "error"){
+        /*if(data.status === "error"){
             return Swal.fire(
                     '',
                     data.message,
                     'error'
             )
-        }
-        Swal.fire(
-            '',
-            data.message,
-            'success'
-        )
+        }*/
+        Swal.fire({
+            icon: "success",
+            text: data.payload
+        })
+            
         console.log(data)
     })
     .catch(error => console.log(error))

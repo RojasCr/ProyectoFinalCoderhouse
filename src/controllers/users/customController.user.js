@@ -15,20 +15,25 @@ const userDto = new UserDTO();
 
 class UsersRouter extends customRouter{
     init(){
-        this.post("/", ["PUBLIC"], passport.authenticate("register", {failureRedirect: "/failRegister"}),async(req, res) => {
+        this.post("/", ["PUBLIC"], passport.authenticate("register", {failureRedirect: "/api/users/failRegister"}),async(req, res) => {
             try {
+
+                const { user } = req;
                 req.logger.info("Nuevo usuario registrado")
-                res.sendSuccess("Usuario registrado");
+                //console.log(user)
+                SendMail.newUser(user)
+                
+                res.cookie("jwt", jwt.sign({role: user.role}, "secreto")).cookie("user", user).redirect("/products");
             } catch (error) {
                 console.log(error)
-                //res.sendServerError({message: "El usuario ya existe"})
+                res.sendServerError("El usuario ya existe")
             }
         });
         
         this.get("/failRegister", ["PUBLIC"],async(req, res) => {
             //req.logger.error("Usuario ya existente")
             //console.log("Falló la estrategia");
-            res.sendServerError(error);
+            res.sendUserError("Usuario ya existente");
         });
 
         this.patch("/premium", ["USER", "ADMIN", "PREMIUM"], async(req, res) => {

@@ -131,9 +131,11 @@ const initializePassport = () => {
                 userInfo.cart = newCart.result._id
                 const newUser = await userDto.create(userInfo);
                 
-                //console.log(newUser)
                 
                 const result = await Users.createUser(newUser);
+                
+                console.log(result)
+                //const newUserInfo = await userDto.findOne(newUser)
                 
                 return done(null, result);
             } catch(error){

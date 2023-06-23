@@ -10,7 +10,7 @@ form.addEventListener("submit", (e) => {
 
     //console.log(obj)
     
-    const url = "/users";
+    const url = "/api/users";
     const headers = {
         "Content-Type": "application/json"
     };
@@ -22,7 +22,21 @@ form.addEventListener("submit", (e) => {
         method,
         body
     })
-    .then(response => response.json())
-    .then(data => console.log(data))
+    .then(response => {
+        if(response.redirected){
+
+            return Swal.fire({
+                title: "Registrado con éxito",
+                icon: "success"
+
+            }
+            ).then(res => window.location.href = response.url)
+                
+           
+        }
+
+        return response.json();
+    })    
+    .then(data => console.log(data.payload))
     .catch(error => console.log(error));
 })

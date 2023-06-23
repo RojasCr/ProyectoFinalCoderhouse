@@ -27,6 +27,16 @@ contactForm.addEventListener("submit", (e) => {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        if(data.status == "error"){
+            return Swal.fire({
+                title: '¡Oops!',
+                text: data.payload,
+                icon: 'question',
+                footer: `<a href="/signup">Puedes registrarte</a>`
+            })
+            
+
+        }
         //alert(data.message)
         Swal.fire(
             '¡Bien!',

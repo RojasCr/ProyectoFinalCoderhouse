@@ -14,18 +14,35 @@ class SendMail{
             pass: "bcffchezzhqutgai"
         }
     });
+    
+    static newUser = (receiver) => {
+        const mailOptions = {
+            from: "criscoder2023@gmail.com",
+            to: receiver.email,
+            subject: "Bienvenido",
+            text: `¡Hola ${receiver.first_name}!
+            Queremos darte la bienvenida a nuestra tienda.`
+        };
+
+        this.transporter.sendMail(mailOptions, (error, info) => {
+            if(error) return console.log(error);
+            console.log(`Mail enviado: ${info.response}`)
+        })
+
+    }
 
     static restorePass = (receiver) => {
     
         const token = jwt.sign({email: receiver}, "secretMail", {expiresIn: "1h"});
     
     
-        let link = `http://localhost:8080/restorePassword/${token}`;
+        let link = `http://localhost:8080/restorePassword?token=${token}`;
         
         const mailOptions = {
             from: "criscoder2023@gmail.com",
             to: receiver,
-            subject: "Prueba",
+            subject: "Restauración de passworrd",
+            text: `Sigue el siguiente enlace vara restaurar tu password`,
             html: `<a href=${link}><input type="button" value="Click para recuperar contraseña"></a>`
         };
         
@@ -39,7 +56,7 @@ class SendMail{
         const mailOptions = {
             from: "criscoder2023@gmail.com",
             to: receiver,
-            subject: "Prueba",
+            subject: "Eliminación de cuenta",
             text: "Su cuenta fue desactivada por inactividad"
         };
         
@@ -54,7 +71,7 @@ class SendMail{
         const mailOptions = {
             from: "criscoder2023@gmail.com",
             to: receiver,
-            subject: "Prueba",
+            subject: "Eliminación de producto",
             text: `Su producto ${product} fue eliminado de la tienda`
         };
         

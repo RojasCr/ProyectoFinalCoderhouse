@@ -28,9 +28,13 @@ form.addEventListener("submit", (e) => {
         }
         return response.json()
     })
-    //.then(productsLink.click())
-    .then(data => console.log(data, "holaa"))
-    //.catch(error => console.log(error))
-    //setTimeout(()=>{productsLink.click()}, 1000);
+    .then(data => {
+        console.log(data)
+        Swal.fire(
+            "¡Oops!",
+            data.payload
+        )
+    })
+    .catch(error => console.log(error))
     
 })
