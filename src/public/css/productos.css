@@ -1,14 +1,84 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+html, body{
+    width: 100%;
+    height: 100%;
+}
+
+#products{
+    display: flex;
+    flex-direction: column;
+    gap: 1vh;
+    padding: 0.2vh;
+    padding-bottom: 2vh;
+}
+
+.navbar{
+    color: white;
+}
+
+.anchor-container{
+    display: flex;
+    justify-content: space-around;
+    width: 15%;
+
+}
+
+.anchor-cart{
+    display: flex;
+    /* height: 2vh; */
+    width: 6vh;
+    filter: invert();
+    /* background-color: black; */
+}
+
+.img-cart{
+    width: 100%;
+    height: 100%;
+}
+
 .lista{
     display: flex;
-    /*flex-wrap: nowrap;*/
-    width: 30rem;
-    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 95%;
+    gap: 1vh;
+    margin: auto auto;
 }
 
 .card{
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    width: 100%;
-    /*height: 1rem;*/
+    width: calc(100%/5);
+    height: 51vh;
+}
+
+.card a{
+    height: 88%;
+}
+
+.card-body{
+    height: 100%;
+}
+
+.card-img-top{
+    height: 65%;
+    border-bottom: solid black;
+}
+
+.card-body .description{
+    height: 35%;
+}
+
+.card .btn{
+    height: 12%;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
 }

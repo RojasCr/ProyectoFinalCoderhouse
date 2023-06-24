@@ -57,8 +57,8 @@ class HandlebarsRouter extends CustomRouter{
                 page: response.page,
                 hasPrevPage: response.hasPrevPage,
                 hasNextPage: response.hasNextPage,
-                prevLink: response.hasPrevPage? `localhost:8080/products?limit=${limit||10}&page=${Number(response.page) - 1}${orden + filter}` : null,
-                nextLink: response.hasNextPage? `localhost:8080/products?limit=${limit||10}&page=${Number(response.page) + 1}${orden + filter}` : null
+                prevLink: response.hasPrevPage? `/products?limit=${limit||10}&page=${Number(response.page) - 1}${orden + filter}` : null,
+                nextLink: response.hasNextPage? `/products?limit=${limit||10}&page=${Number(response.page) + 1}${orden + filter}` : null
             }
         
             const productsStr = JSON.stringify(products);
@@ -75,7 +75,7 @@ class HandlebarsRouter extends CustomRouter{
             res.render("productDescription", {product: productObj})
         });
 
-        this.get("/carts/:cid", ["USER"],async(req, res) => {
+        this.get("/carts/:cid", ["USER", "PREMIUM", "ADMIN"],async(req, res) => {
             const { cid } = req.params;
             const cartId = await cartManager.getCartById(cid);
             const cartStr = JSON.stringify(cartId);
@@ -116,7 +116,7 @@ class HandlebarsRouter extends CustomRouter{
                     return res.redirect("/restore")
                 }
             });
-            res.render("restorePassword");
+            res.render("restorePassword", {style: "css/restorePassword.css"});
 
             
         });

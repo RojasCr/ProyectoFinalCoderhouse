@@ -96,6 +96,7 @@ class ProductsRouter extends customRouter{
             try{
                 await productsModel.deleteMany();
                 const products = await manejadorDeProductos.getProducts();
+                //products.owner = "ADMIN";
                 await productsModel.insertMany(products);
                 res.sendSuccess("Productos agregados a DB");
             } catch (err) {

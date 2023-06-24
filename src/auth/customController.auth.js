@@ -21,7 +21,7 @@ class AuthRouter extends CustomRouter{
 
                 const response = await generateToken(email, password)
                    
-                res.cookie("jwt", response.token).cookie("user", response.userInfo).redirect("/products");
+                res.cookie("jwt", response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products");
             } catch (error) {
                 req.logger.error("Usuario no autenticado");
                 res.sendUserError("Tu usuario y/o constraseña no coinciden")

@@ -72,7 +72,7 @@ class CartsRouter extends customRouter{
             }
         })
 
-        this.post("/:cid/product/:pid", ["USER", "PREMIUM"],async(req, res) => {
+        this.post("/:cid/product/:pid", ["USER", "ADMIN", "PREMIUM"],async(req, res) => {
             try {
 
                 const currentUser = req.user;
@@ -84,7 +84,10 @@ class CartsRouter extends customRouter{
                     return res.sendUserError("No puedes agregar un producto que te pertenece")
                 }
                 const response = await cartManager.addProductToCart(cid, pid);
-                res.sendSuccess(response);
+
+                currentUser.cart = response.cart;
+
+                res.cookie("user", currentUser, {httpOnly: true, secure: true}).sendSuccess(currentUser);
             } catch (error) {
                 throw error;
             }
