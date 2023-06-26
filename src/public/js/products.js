@@ -24,7 +24,13 @@ document.addEventListener("click", (e) => {
     })    
     .then(data => {
         const quantity = document.getElementById("productQuantity")
-        quantity.innerHTML = data.payload.products.length
+
+        //if(data.payload.products.length !== 0){
+            const totalProducts = data.payload.products.reduce( (acc, curr) => acc + curr.quantity, 0)
+            quantity.innerHTML = totalProducts
+                
+            
+        //}
         
         
         console.log(data)})

@@ -42,7 +42,7 @@ class HandlebarsRouter extends CustomRouter{
 
         this.get("/products", ["USER", "ADMIN", "PREMIUM"], async(req, res) => {
             let { limit, page, sort, query } = req.query;
-            const  user  = req.cookies.user;
+            const user = req.cookies.user;
             
             let response = await productManager.getProducts(limit, page, sort, query);
             const orden = sort? `&sort=${sort}` : "";

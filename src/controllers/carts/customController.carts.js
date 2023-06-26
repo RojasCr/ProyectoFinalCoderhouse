@@ -85,9 +85,11 @@ class CartsRouter extends customRouter{
                 }
                 const response = await cartManager.addProductToCart(cid, pid);
 
-                currentUser.cart = response.cart;
+                currentUser.cart = response;
 
-                res.cookie("user", currentUser, {httpOnly: true, secure: true}).sendSuccess(currentUser);
+                //console.log(response)
+
+                res.cookie("user", currentUser, {httpOnly: true, secure: true}).sendSuccess(response);
             } catch (error) {
                 throw error;
             }

@@ -65,11 +65,14 @@ class MongoCartManager{
             const productRepeated = cart.products.find(p => String(p.product) === String(producto._id));
             if(productRepeated){
                 const newQuantity = productRepeated.quantity + 1;
-                const result = await cartsModel.findOneAndUpdate({id: Number(cid), "products.product": String(producto._id)}, {$set: {"products.$.quantity": newQuantity}});
+                await cartsModel.updateOne({id: Number(cid), "products.product": String(producto._id)}, {$set: {"products.$.quantity": newQuantity}});
+                const result = await cartsModel.findOne({id: cid});
                 return result;
             } else {
                 cart.products.push(productToAdd);
-                let result = await cartsModel.findOneAndUpdate({id: Number(cid)}, cart);
+                await cartsModel.updateOne({id: Number(cid)}, cart);
+                const result = await cartsModel.findOne({id: cid});
+                console.log(result)
                 return result;
             }
             

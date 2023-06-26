@@ -134,7 +134,7 @@ const initializePassport = () => {
                 
                 const result = await Users.createUser(newUser);
                 
-                console.log(result)
+                //console.log(result)
                 //const newUserInfo = await userDto.findOne(newUser)
                 
                 return done(null, result);

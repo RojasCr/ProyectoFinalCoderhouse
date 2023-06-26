@@ -43,9 +43,13 @@ const generateToken = async(email, password) => {
         //     role: user.role
         // }
 
-        const token = jwt.sign({email, role: user.role}, "secreto");
+        const totalProducts = userInfo.cart.products.reduce( (acc, curr) => acc + curr.quantity, 0)
 
-        //req.headers.autentication = token;
+        userInfo.totalProducts = totalProducts;
+
+        const token = jwt.sign({email, cart: user.cart, role: user.role}, "secreto");
+
+        console.log(userInfo)
         
         return {token, userInfo};
         

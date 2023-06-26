@@ -20,10 +20,14 @@ class UsersRouter extends customRouter{
 
                 const { user } = req;
                 req.logger.info("Nuevo usuario registrado")
-                //console.log(user)
+
+                const newUser = await Users.findUser(user.email)
+                const currentUser = await userDto.findOne(newUser)
+                currentUser.totalProducts = 0;
+                console.log(currentUser)
                 SendMail.newUser(user)
                 
-                res.cookie("jwt", jwt.sign({role: user.role}, "secreto")).cookie("user", user).redirect("/products");
+                res.cookie("jwt", jwt.sign({role: user.role}, "secreto")).cookie("user", currentUser).redirect("/products");
             } catch (error) {
                 console.log(error)
                 res.sendServerError("El usuario ya existe")
