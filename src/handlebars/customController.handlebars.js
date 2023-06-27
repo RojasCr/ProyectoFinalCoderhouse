@@ -63,6 +63,8 @@ class HandlebarsRouter extends CustomRouter{
         
             const productsStr = JSON.stringify(products);
             const productsObj = JSON.parse(productsStr);
+
+            //console.log(user)
             return res.render("products", {products: productsObj, user, style: "css/productos.css", limit: limit});
         });
 
@@ -75,14 +77,22 @@ class HandlebarsRouter extends CustomRouter{
             res.render("productDescription", {product: productObj})
         });
 
-        this.get("/carts/:cid", ["USER", "PREMIUM", "ADMIN"],async(req, res) => {
-            const { cid } = req.params;
-            const cartId = await cartManager.getCartById(cid);
+        this.get("/carts", ["USER", "PREMIUM", "ADMIN"],async(req, res) => {
+            let { id } = req.query;
+            const cartId = await cartManager.getCartById(id);
             const cartStr = JSON.stringify(cartId);
             const cartObj = JSON.parse(cartStr);
         
-            res.render("cart", {cart: cartObj})
+            res.render("cart", {cart: cartObj, style: "css/cart.css"})
         });
+
+        this.get("/purchase", ["USER", "PREMIUM", "ADMIN"], async(req, res) => {
+            try {
+                res.render("purchase");
+            } catch (error) {
+                throw new Error(error)
+            }
+        })
 
         this.get("/realTimesProducts", ["USER"],(req, res) => {
             res.render("realTimesProducts", {});

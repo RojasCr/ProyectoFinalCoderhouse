@@ -1,9 +1,33 @@
-<div id="cart">
-    {{#each cart.products}}
-    
-    <ul>
-        <li>Producto: {{product.title}}</li>
-        <li>Cantidad: {{quantity}}</li>
-    </ul>
-    {{/each}}
+<div class="container">
+
+    <div class=" cart-container" id="cart">
+        
+            <h3 class="bg-success">Tu carrito</h3>
+            {{#each cart.products}}
+            
+            <ul class="list-group">
+                <li class="list-group-item list-group-item-action">Producto: {{product.title}}</li>
+                <li class="list-group-item list-group-item-action">Cantidad: {{quantity}}</li>
+                <li class="list-group-item list-group-item-action">Precio: {{product.price}}</li>
+                <li class="list-group-item list-group-item-action">Stock: {{product.stock}}</li>
+            </ul>
+            {{/each}}
+
+            {{!-- <span>{{}}</span> --}}
+            <button value="{{cart.id}}" id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
+        
+    </div>
+    <aside class="list-group" id="purchaseInfo">
+        <h5>Tu ticket</h5>
+        
+        <div class="card-body">
+            <p class="list-group-item list-group-item-action" id="purchaseCode">Code: </p>
+            <p class="list-group-item list-group-item-action" id="purchaseDate">Fecha: </p>
+            <p class="list-group-item list-group-item-action" id="purchaseAmount">Total: $</p>
+            <p class="list-group-item list-group-item-action" id="purchaser">Comprador: </p>
+        </div>
+    </aside>
 </div>
+
+
+<script src="js/cart.js"></script>

@@ -39,7 +39,7 @@ class CartsRouter extends customRouter{
                 const cart = await cartManager.getCartById(cid);
                 const productsToPurchase = cart.products;
 
-                const currentUser = await userModel.findOne({cart: cart._id});
+                const currentUser = req.cookies.user;
 
                 const purchaseFilterAvailable = productsToPurchase.filter(p => p.product.stock !== 0);
                 const purchaseFilterUnavailable = productsToPurchase.filter(p => p.product.stock === 0);
@@ -61,9 +61,14 @@ class CartsRouter extends customRouter{
 
                 if(newTicket){
                     await cartManager.updateOne(cid, purchaseFilterUnavailable);
+                    const cartUpdated = await cartManager.getCartById(cid);
+                    //const cartUpdated = await userModel.findOne({cart: cart._id})
+                    currentUser.cart = cartUpdated;
+                    currentUser.totalProducts = cartUpdated.products.reduce( (acc, curr) => acc + curr.quantity, 0)
+                    console.log(cartUpdated)
+                    res.cookie("user", currentUser, {httpOnly: true, secure: true}).sendSuccess(newTicket);
                 }
-
-                res.sendSuccess(newTicket);
+                
                 
                 /**AGREGAR CASO DE COMPRA FALLIDA**/
 
@@ -75,7 +80,7 @@ class CartsRouter extends customRouter{
         this.post("/:cid/product/:pid", ["USER", "ADMIN", "PREMIUM"],async(req, res) => {
             try {
 
-                const currentUser = req.user;
+                const currentUser = req./*user*/cookies.user;
                 const { cid, pid} = req.params;
 
                 const currentProduct = await productModel.findOne({id: pid})
@@ -85,9 +90,11 @@ class CartsRouter extends customRouter{
                 }
                 const response = await cartManager.addProductToCart(cid, pid);
 
-                currentUser.cart = response;
 
-                //console.log(response)
+                currentUser.cart = response;
+                currentUser.totalProducts = response.products.reduce( (acc, curr) => acc + curr.quantity, 0)
+
+                console.log(currentUser)
 
                 res.cookie("user", currentUser, {httpOnly: true, secure: true}).sendSuccess(response);
             } catch (error) {

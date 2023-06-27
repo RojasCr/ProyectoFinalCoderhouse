@@ -12,7 +12,7 @@
                 {{!-- </div> --}}
             {{else}}
                 <div class="anchor-container">
-                    <a id={{user.cart.id}} class="anchor-cart" href="/carts/{{user.cart.id}}"><img class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><span id="productQuantity">{{user.totalProducts}}</span></a>
+                    <a id={{user.cart.id}} class="anchor-cart" href="/carts?id={{user.cart.id}}"><img class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><span id="productQuantity">{{user.totalProducts}}</span></a>
                     <a href="/auth/logout"><button class="btn btn-secondary">Logout</button> </a>
                 </div>
             {{/if}}
