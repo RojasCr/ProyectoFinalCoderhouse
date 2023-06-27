@@ -1,8 +1,9 @@
 const mongoose = require("mongoose")
 const { dbUser, dbPassword, dbHost, dbName } = require("../config/db.config");
-const CustomError = require("../utils/errors/customErrors");
+//const CustomError = require("../utils/errors/customErrors.js");
 const generateErrorInfo = require("../utils/errors/infoError");
 const enumErrors = require("../utils/errors/enumErrors");
+const CustomError = require("../utils/errors/customErrors");
 
 const mongoConnect = async () => {
     try {
