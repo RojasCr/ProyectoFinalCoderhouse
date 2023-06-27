@@ -36,7 +36,7 @@ class SendMail{
         const token = jwt.sign({email: receiver}, "secretMail", {expiresIn: "1h"});
     
     
-        let link = `/restorePassword?token=${token}`;
+        let link = `https://dianshop.up.railway.app/restorePassword?token=${token}`;
         
         const mailOptions = {
             from: "criscoder2023@gmail.com",
