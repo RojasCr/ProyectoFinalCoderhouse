@@ -20,7 +20,6 @@ const mongoConnect = async () => {
         const isConnected = await mongoose.connect(
             `mongodb+srv://${dbUser}:${dbPassword}@${dbHost}/${dbName}?retryWrites=true&w=majority`
         );
-
         
         
         console.log("DB connected", dbName);
