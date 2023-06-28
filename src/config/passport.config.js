@@ -40,7 +40,7 @@ const initializePassport = () => {
     passport.use(new GoogleStrategy({
         clientID: clientIDGoogle,
         clientSecret: clientSecretGoogle,
-        callbackURL: "http://localhost:8080/auth/google/callback",
+        callbackURL: "/auth/google/callback",
         
     },
     async function(accesToken, refreshToken, profile, done){
@@ -76,7 +76,7 @@ const initializePassport = () => {
     passport.use(new GithubStrategy({
         clientID: clientIDGithub,
         clientSecret: clientSecretGithub,
-        callbackURL: "http://localhost:8080/auth/github/callback"
+        callbackURL: "/auth/github/callback"
     },
     async function(accesToken, refreshToken, profile, done){
         try {

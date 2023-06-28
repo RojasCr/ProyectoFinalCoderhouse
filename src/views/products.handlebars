@@ -3,7 +3,7 @@
 
         <nav class="navbar navbar-dark bg-dark" id="cartel">
             <h1>¡Bienvenido/a {{user.first_name}} {{user.last_name}}!</h1>
-            <h3>Eres: {{user.role}}</h3>
+            <h5>Eres: {{user.role}}</h5>
 
             {{#if user.isAdmin}}
                 {{!-- <div class="anchor-container"> --}}
@@ -12,8 +12,8 @@
                 {{!-- </div> --}}
             {{else}}
                 <div class="anchor-container">
-                    <a id={{user.cart.id}} class="anchor-cart" href="/carts?id={{user.cart.id}}"><img class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><span id="productQuantity">{{user.totalProducts}}</span></a>
-                    <a href="/auth/logout"><button class="btn btn-secondary">Logout</button> </a>
+                    <a id={{user.cart.id}} class="anchor-cart" href="/carts?id={{user.cart.id}}"><img class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><div id="productQuantity">{{user.totalProducts}}</div></a>
+                    <a id="logout" href="/auth/logout"><button class="btn btn-secondary btn-sm">Logout</button> </a>
                 </div>
             {{/if}}
 
@@ -32,7 +32,7 @@
         {{#if user.isAdmin}}
             {{#each products.payload}}
                 <div class="card">
-                    <a href="http://localhost:8080/products/description?pid={{id}}" >
+                    <a href="/products/description?pid={{id}}" >
                         <div class="card-body">
                             <img class="card-img-top" src={{thumbail}} alt="">
                             <div class="description">
