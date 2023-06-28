@@ -1,4 +1,4 @@
-<div class="container">
+<div id="{{cart.id}}" class="container">
 
     <div class=" cart-container" id="cart">
         
@@ -11,6 +11,8 @@
             <li class="list-group-item list-group-item-action">Precio: {{product.price}}</li>
             <li class="list-group-item list-group-item-action">Stock: {{product.stock}}</li>
         </ul>
+
+        <button value="{{product.id}}" id="deleteBtn" class="btn btn-secondary">Eliminar del carrito</button>
         {{/each}}
 
         {{!-- <span>{{}}</span> --}}
