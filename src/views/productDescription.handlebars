@@ -31,7 +31,13 @@
         <p>Cantidad disponible: {{product.stock}}</p>
         {{!-- {{/each}} --}}
         {{!-- <button id={{id}} class="btn btn-primary" value="AddToCart">Agregar al carrito</button> --}}
-        <a href="/products" class="btn btn-secondary">Seguir comprando</a>
+        <a href="/products" class="btn btn-secondary">
+        {{#if user.isAdmin}}
+        Volver al inicio
+        {{else}}
+        Seguir comprando
+        {{/if}}
+        </a>
     </div>
 </div>
 
