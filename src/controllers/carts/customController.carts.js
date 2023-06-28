@@ -14,7 +14,7 @@ const ticketsModel = require("../../dao/mongo/models/tickets.model");
 
 class CartsRouter extends customRouter{
     init(){
-        this.post("/", ["PUBLIC"],async(req, res) => {
+        this.post("/", ["ADMIN"],async(req, res) => {
             try {
                const response = await cartManager.addCart();
                res.sendSuccess(response.message);
@@ -23,7 +23,7 @@ class CartsRouter extends customRouter{
             }
         });
         
-        this.get("/:cid", ["PUBLIC"],async(req, res) => {
+        this.get("/:cid", ["ADMIN"],async(req, res) => {
             try {
                 const { cid } = req.params;
                 const response = await cartManager.getCartById(cid);
@@ -33,7 +33,7 @@ class CartsRouter extends customRouter{
             }
         });
 
-        this.get("/:cid/purchase", ["PUBLIC"], async (req, res) => {
+        this.get("/:cid/purchase", ["USER", "PREMIUM"], async (req, res) => {
             try {
                 const { cid } = req.params;
                 const cart = await cartManager.getCartById(cid);
@@ -77,10 +77,10 @@ class CartsRouter extends customRouter{
             }
         })
 
-        this.post("/:cid/product/:pid", ["USER", "ADMIN", "PREMIUM"],async(req, res) => {
+        this.post("/:cid/product/:pid", ["USER", "PREMIUM"],async(req, res) => {
             try {
 
-                const currentUser = req./*user*/cookies.user;
+                const currentUser = req.cookies.user;
                 const { cid, pid} = req.params;
 
                 const currentProduct = await productModel.findOne({id: pid})
@@ -102,7 +102,7 @@ class CartsRouter extends customRouter{
             }
         })
         
-        this.delete("/:cid/products/:pid", ["USER"],async (req, res) => {
+        this.delete("/:cid/products/:pid", ["USER", "PREMIUM"],async (req, res) => {
             try {
                 const { cid, pid } = req.params;
                 const response = await cartManager.deleteProductFromCart(cid, pid);

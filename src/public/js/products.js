@@ -21,12 +21,15 @@ document.addEventListener("click", (e) => {
             headers
         })
         .then(response => {
-            if(response.ok){
-                
-                return response.json()
-            }
+            return response.json()
         })    
         .then(data => {
+            if(data.status === "error"){
+                return Swal.fire({
+                    icon: "error",
+                    text: data.payload
+                })
+            }
             const quantity = document.getElementById("productQuantity")
     
             //if(data.payload.products.length !== 0){
