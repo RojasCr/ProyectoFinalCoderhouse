@@ -38,13 +38,14 @@ class AuthRouter extends CustomRouter{
             const response = await generateToken(email)
             res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products")
         })
-
+        
         //GITHUB
         this.get("/github", ["PUBLIC"], passport.authenticate("github", {scope: ["user: email"]}));
-
-        this.get("/github/callback", ["PUBLIC"],passport.authenticate("github", {failureRedirect: "/login"}), (req, res) => {
-            req.user.role = "USER";
+        
+        this.get("/github/callback", ["PUBLIC"],passport.authenticate("github", {failureRedirect: "/login"}), async(req, res) => {
+            //req.user.role = "USER";
             //req.session.user = req.user;
+            const response = await generateToken(email)
             res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products");
         })
 
