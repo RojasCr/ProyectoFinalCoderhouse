@@ -35,7 +35,7 @@ class AuthRouter extends CustomRouter{
             //req.user.role = "USER";
             //req.session.user = req.user;
             //console.log(req.user)
-            const response = await generateToken(email)
+            const response = await generateToken(req.user.email)
             res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products")
         })
         
@@ -45,7 +45,7 @@ class AuthRouter extends CustomRouter{
         this.get("/github/callback", ["PUBLIC"],passport.authenticate("github", {failureRedirect: "/login"}), async(req, res) => {
             //req.user.role = "USER";
             //req.session.user = req.user;
-            const response = await generateToken(email)
+            const response = await generateToken(req.user.email)
             res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products");
         })
 
