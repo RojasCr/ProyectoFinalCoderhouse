@@ -2,20 +2,21 @@
 
     <div class=" cart-container" id="cart">
         
-            <h3 class="bg-success">Tu carrito</h3>
-            {{#each cart.products}}
-            
-            <ul class="list-group">
-                <li class="list-group-item list-group-item-action">Producto: {{product.title}}</li>
-                <li class="list-group-item list-group-item-action">Cantidad: {{quantity}}</li>
-                <li class="list-group-item list-group-item-action">Precio: {{product.price}}</li>
-                <li class="list-group-item list-group-item-action">Stock: {{product.stock}}</li>
-            </ul>
-            {{/each}}
-
-            {{!-- <span>{{}}</span> --}}
-            <button value="{{cart.id}}" id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
+        <h3 class="bg-success">Tu carrito</h3>
+        {{#each cart.products}}
         
+        <ul class="list-group">
+            <li class="list-group-item list-group-item-action">Producto: {{product.title}}</li>
+            <li class="list-group-item list-group-item-action">Cantidad: {{quantity}}</li>
+            <li class="list-group-item list-group-item-action">Precio: {{product.price}}</li>
+            <li class="list-group-item list-group-item-action">Stock: {{product.stock}}</li>
+        </ul>
+        {{/each}}
+
+        {{!-- <span>{{}}</span> --}}
+        <button value="{{cart.id}}" id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
+        
+        <a href="/products" class="btn btn-secondary">Seguir comprando</a>
     </div>
     <aside class="list-group" id="purchaseInfo">
         <h5>Tu ticket</h5>
