@@ -95,9 +95,9 @@ const initializePassport = () => {
                     //password: ""
                 }
 
-                //const newUser = new UserDTO(newUserInfo)
+                const newUser = await userDto.create(newUserInfo)
 
-                const result = await Users.createUser(newUserInfo);
+                const result = await Users.createUser(newUser);
                 return done(null, result);
             }
 

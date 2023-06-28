@@ -27,11 +27,14 @@ const generateToken = async(email, password) => {
             return res.json({message: "Usuario y/o contraseña incorrecta"})
         }
 
-        const isValidPassword = compareCrypt(password, user.password);
-        
-        if(!isValidPassword){
-            return res.json({message: "Usuario y/o contraseña incorrecta"})
+        if(password){
+            const isValidPassword = compareCrypt(password, user.password);
+            
+            if(!isValidPassword){
+                return res.json({message: "Usuario y/o contraseña incorrecta"})
+            }
         }
+
 
         const userInfo = await userDto.findOne(user)
 

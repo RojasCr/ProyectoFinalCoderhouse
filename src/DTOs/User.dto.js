@@ -18,7 +18,7 @@ class UserDTO{
             last_name: user.last_name,
             email: user.email,
             age: user.age,
-            password: cryptPassword(user.password),
+            password: user.password? cryptPassword(user.password) : null,
             cart: user.cart,
             role: user.role,
         }

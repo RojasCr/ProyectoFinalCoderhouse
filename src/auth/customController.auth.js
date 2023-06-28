@@ -31,11 +31,12 @@ class AuthRouter extends CustomRouter{
         //GOOGLE
         this.get("/google", ["PUBLIC"],passport.authenticate("google", {scope: ["profile"]}))
 
-        this.get("/google/callback", ["PUBLIC"],passport.authenticate("google", {failureRedirect: "/login"}), (req, res) => {
-            req.user.role = "USER";
+        this.get("/google/callback", ["PUBLIC"],passport.authenticate("google", {failureRedirect: "/login"}), async(req, res) => {
+            //req.user.role = "USER";
             //req.session.user = req.user;
             //console.log(req.user)
-            res.cookie("jwt",jwt.sign({role: req.user.role}, "secreto")).cookie("user", req.user).redirect("/products")
+            const response = await generateToken(email)
+            res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products")
         })
 
         //GITHUB
@@ -44,7 +45,7 @@ class AuthRouter extends CustomRouter{
         this.get("/github/callback", ["PUBLIC"],passport.authenticate("github", {failureRedirect: "/login"}), (req, res) => {
             req.user.role = "USER";
             //req.session.user = req.user;
-            res.cookie("jwt",jwt.sign({role: req.user.role}, "secreto")).cookie("user", req.user).redirect("/products");
+            res.cookie("jwt",response.token, {httpOnly: true, secure: true}).cookie("user", response.userInfo, {httpOnly: true, secure: true}).redirect("/products");
         })
 
         this.get("/logout", ["USER", "PREMIUM", "ADMIN"], async (req, res) => {
