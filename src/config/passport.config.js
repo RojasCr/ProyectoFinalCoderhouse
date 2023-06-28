@@ -45,7 +45,8 @@ const initializePassport = () => {
     },
     async function(accesToken, refreshToken, profile, email, done){
         try {
-            //console.log(profile)
+            console.log(profile)
+            console.log(email)
             const user = await userModel.findOne({googleId: profile.id})
             const cart = await cartManager.addCart();
 
