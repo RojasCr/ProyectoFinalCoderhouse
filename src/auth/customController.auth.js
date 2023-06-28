@@ -29,7 +29,7 @@ class AuthRouter extends CustomRouter{
         })
 
         //GOOGLE
-        this.get("/google", ["PUBLIC"],passport.authenticate("google", {scope: ["profile"]}))
+        this.get("/google", ["PUBLIC"],passport.authenticate("google", {scope: ["profile", "email"]}))
 
         this.get("/google/callback", ["PUBLIC"],passport.authenticate("google", {failureRedirect: "/login"}), async(req, res) => {
             //req.user.role = "USER";

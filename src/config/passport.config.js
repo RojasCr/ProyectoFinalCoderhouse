@@ -43,7 +43,7 @@ const initializePassport = () => {
         callbackURL: "/auth/google/callback",
         
     },
-    async function(accesToken, refreshToken, profile, done){
+    async function(accesToken, refreshToken, profile, email, done){
         try {
             //console.log(profile)
             const user = await userModel.findOne({googleId: profile.id})
@@ -54,7 +54,7 @@ const initializePassport = () => {
                     googleId: profile.id,
                     first_name: profile._json.given_name,
                     last_name: profile._json.family_name,
-                    email: profile._json.email,
+                    email: email,
                     age: profile._json.age,
                     cart: cart.result._id,
                     //password: ""
