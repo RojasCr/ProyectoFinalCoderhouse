@@ -15,9 +15,11 @@
         <button value="{{product.id}}" id="deleteBtn" class="btn btn-secondary">Eliminar del carrito</button>
         {{/each}}
 
-        {{!-- <span>{{}}</span> --}}
+        {{#if cart.products}}
         <button value="{{cart.id}}" id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
-        
+        {{else}}
+        <h3>¡No hay productos en tu carrito!</h3>       
+        {{/if}}
         <a href="/products" class="btn btn-secondary">Seguir comprando</a>
     </div>
     <aside class="list-group" id="purchaseInfo">
