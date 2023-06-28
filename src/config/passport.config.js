@@ -81,7 +81,7 @@ const initializePassport = () => {
     async function(accesToken, refreshToken, profile, done){
         try {
             //console.log(profile)
-            const user = await userModel.findOne({githubId: profile.id});
+            const user = await userModel.findOne({email: profile._json.email});
             const cart = await cartManager.addCart();
             
             if(!user){
