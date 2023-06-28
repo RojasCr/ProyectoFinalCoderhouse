@@ -43,7 +43,7 @@ deleteBtn.addEventListener("click", () => {
             icon: "success",
             text: data.payload
         })
-        .then(window.location.reload())
+        .then(() => window.location.reload())
         
     })
     .catch(err => console.log(err))
