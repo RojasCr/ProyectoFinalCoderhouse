@@ -70,11 +70,13 @@ class HandlebarsRouter extends CustomRouter{
 
         this.get("/products/description", ["USER", "PREMIUM", "ADMIN"],async(req, res) => {
             const { pid } = req.query;
+            const user = req.cookies.user
+
             const product = await productManager.getProductbyId(pid);
             const productStr = JSON.stringify(product);
             const productObj = JSON.parse(productStr);
         
-            return res.render("productDescription", {product: productObj, style: "css/product.css"})
+            return res.render("productDescription", {product: productObj, user/*, style: "css/product.css"*/})
         });
 
         this.get("/carts", ["USER", "PREMIUM", "ADMIN"],async(req, res) => {
