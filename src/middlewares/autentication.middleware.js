@@ -1,4 +1,4 @@
-const redirector = (req, res) => {
+const redirector = (req, res, next) => {
     if(!req.cookies.user){
         return res.redirect("/login")
     }
