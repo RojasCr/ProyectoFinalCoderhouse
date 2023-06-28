@@ -105,8 +105,12 @@ class CartsRouter extends customRouter{
         this.delete("/:cid/products/:pid", ["USER", "PREMIUM"],async (req, res) => {
             try {
                 const { cid, pid } = req.params;
+                const user = req.cookies.user
                 const response = await cartManager.deleteProductFromCart(cid, pid);
-                res.sendSuccess(response);
+                
+                user.totalProducts -= 1;
+                
+                res.cookie("user", user, {httpOnly: true, secure: true}).sendSuccess(response);
             } catch (error) {
                 throw error
             }
