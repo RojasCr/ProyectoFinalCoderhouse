@@ -1,3 +1,7 @@
+const header = document.getElementById("header")
+
+header.style.display = "flex";
+
 document.addEventListener("click", (e) => {
     const currentCart = document.getElementsByClassName("anchor-cart")[0].id;
     const currentProduct = e.target

@@ -1,5 +1,5 @@
 <div class="container" id="producto">
-    <header>
+    <header id="header">
 
         <nav class="navbar navbar-dark bg-dark" id="cartel">
             {{!-- <h1>¡Bienvenido/a {{user.first_name}} {{user.last_name}}!</h1>
@@ -12,7 +12,7 @@
                 {{!-- </div> --}}
             {{else}}
                 <div class="anchor-container">
-                    <a id={{user.cart.id}} class="anchor-cart" href="/carts?id={{user.cart.id}}"><img class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><div id="productQuantity">{{user.totalProducts}}</div></a>
+                    <a id={{user.cart.id}} class="anchor-cart" href="/carts?id={{user.cart.id}}"><img height="5vh" width="5vh" class="img-cart" src="https://cdn.icon-icons.com/icons2/1456/PNG/512/mbrishoppingcart_99558.png" alt=""><div id="productQuantity">{{user.totalProducts}}</div></a>
                     <a id="logout" href="/auth/logout"><button class="btn btn-secondary btn-sm">Logout</button> </a>
                 </div>
             {{/if}}
@@ -30,7 +30,9 @@
         <p>Código: {{product.code}}</p>
         <p>Cantidad disponible: {{product.stock}}</p>
         {{!-- {{/each}} --}}
-        <button id={{id}} class="btn btn-primary btn-block" value="AddToCart">Agregar al carrito</button>
+        <button id={{id}} class="btn btn-primary" value="AddToCart">Agregar al carrito</button>
         <a href="/products" class="btn btn-secondary">Seguir comprando</a>
     </div>
 </div>
+
+<script src="js/productDescription.js"></script>
