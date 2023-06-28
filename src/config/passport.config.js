@@ -76,7 +76,7 @@ const initializePassport = () => {
     passport.use(new GithubStrategy({
         clientID: clientIDGithub,
         clientSecret: clientSecretGithub,
-        callbackURL: "/auth/github/callback"
+        callbackURL: "https://dianshop.up.railway.app/auth/github/callback"
     },
     async function(accesToken, refreshToken, profile, done){
         try {
