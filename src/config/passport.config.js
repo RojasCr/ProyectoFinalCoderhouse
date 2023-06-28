@@ -46,10 +46,12 @@ const initializePassport = () => {
     async function(accesToken, refreshToken, profile, done){
         try {
             
-            const user = await userModel.findOne({googleId: profile.id})
-            const cart = await cartManager.addCart();
-
+            const user = await userModel.findOne({email: profile._json.email})
+            
             if(!user){
+
+                const cart = await cartManager.addCart();
+
                 const newUserInfo = {
                     googleId: profile.id,
                     first_name: profile._json.given_name,
@@ -66,13 +68,16 @@ const initializePassport = () => {
                 return done(null, result);
             }
 
+            await userModel.updateOne({email: profile._json.email}, {googleId: profile.id})
+            user.googleId = profile.id
+            
             return done(null, user);
         } catch (error) {
             done(error);
         }
     }
     ))
-
+    
     passport.use(new GithubStrategy({
         clientID: clientIDGithub,
         clientSecret: clientSecretGithub,
@@ -82,9 +87,9 @@ const initializePassport = () => {
         try {
             //console.log(profile)
             const user = await userModel.findOne({email: profile._json.email});
-            const cart = await cartManager.addCart();
             
             if(!user){
+                const cart = await cartManager.addCart();
                 const newUserInfo = {
                     githubId: profile.id,
                     first_name: profile._json.name,
@@ -94,12 +99,15 @@ const initializePassport = () => {
                     cart: cart.result._id,
                     //password: ""
                 }
-
+                
                 const newUser = await userDto.create(newUserInfo)
-
+                
                 const result = await Users.createUser(newUser);
                 return done(null, result);
             }
+            
+            await userModel.updateOne({email: profile._json.email}, {githubId: profile.id})
+            user.githubId = profile.id
 
             return done(null, user);
         } catch (error) {
