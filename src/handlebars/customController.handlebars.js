@@ -7,6 +7,7 @@ const MongoProductManager = require("../dao/mongoManager/MongoProductManager");
 const MongoCartManager = require("../dao/mongoManager/MongoCartManager");
 const manejadorDeProductos = require("../dao/filesManager/productManager");
 const Users = require("../repositories");
+const redirector = require("../middlewares/autentication.middleware");
 
 
 const productManager = new MongoProductManager();
@@ -32,15 +33,15 @@ class HandlebarsRouter extends CustomRouter{
             }
         })
 
-        this.get("/", ["PUBLIC"],(req, res) => {
+        this.get("/", ["PUBLIC"], redirector, (req, res) => {
             try{
-                res.redirect("/login");
+                res.redirect("/products");
             } catch(err){
                 throw new Error(err);
             }
         });
 
-        this.get("/products", ["USER", "ADMIN", "PREMIUM"], async(req, res) => {
+        this.get("/products", ["USER", "ADMIN", "PREMIUM"], redirector, async(req, res) => {
             let { limit, page, sort, query } = req.query;
             const user = req.cookies.user;
             
