@@ -5,5 +5,5 @@ require("dotenv").config({
 module.exports = {
     clientIDGithub: process.env.CLIENT_ID_GITHUB,
     clientSecretGithub: process.env.CLIENT_SECRET_GITHUB,
-    callBackUrl: process.env.CLIENT_CALLBACK_URL
+    callBackUrl: process.env.CALLBACK_URL_GITHUB
 }

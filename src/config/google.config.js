@@ -5,5 +5,5 @@ require("dotenv").config({
 module.exports = {
     clientIDGoogle: process.env.CLIENT_ID_GOOGLE,
     clientSecretGoogle: process.env.CLIENT_SECRET_GOOGLE,
-    callBackUrl: process.env.CLIENT_CALLBACK_URL
+    callBackUrl: process.env.CALLBACK_URL_GOOGLE
 }
