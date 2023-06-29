@@ -57,6 +57,7 @@ class CustomRouter{
     }
 
     redirector = (req, res, next) => {
+        const authPaths = ["/google", "/google/callback", "/github", "/github/callback"]
 
         if(req.path !== "/login" && !req.cookies.jwt){
             return res.redirect("/login")
@@ -65,8 +66,11 @@ class CustomRouter{
         if(req.path === "/login" && req.cookies.jwt){
             return res.redirect("/products")
         }
-        
-        return next();
+
+        if(authPaths.includes(req.path)){
+            return next();
+        }
+
     }
 
     handlePolicies = (policies) => {
