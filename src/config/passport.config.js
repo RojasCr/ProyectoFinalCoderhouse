@@ -21,8 +21,8 @@ const userModel = require("../dao/mongo/models/users.model");
 const jwt = require("jsonwebtoken")
 
 const { cryptPassword, compareCrypt } = require("../utils/cryptPassword");
-const { clientIDGoogle, clientSecretGoogle } = require("./google.config");
-const { clientIDGithub, clientSecretGithub, callBackUrl } = require("./github.config");
+const { clientIDGoogle, clientSecretGoogle, callBackUrlGoogle } = require("./google.config");
+const { clientIDGithub, clientSecretGithub, callBackUrlGithub } = require("./github.config");
 
 const cookieExtractor = require("../utils/cookieExtractorJwt");
 
@@ -40,7 +40,7 @@ const initializePassport = () => {
     passport.use(new GoogleStrategy({
         clientID: clientIDGoogle,
         clientSecret: clientSecretGoogle,
-        callbackURL: `${callBackUrl || ""}/auth/google/callback`,
+        callbackURL: `${callBackUrlGoogle || ""}/auth/google/callback`,
         
     },
     async function(accesToken, refreshToken, profile, done){
@@ -81,7 +81,7 @@ const initializePassport = () => {
     passport.use(new GithubStrategy({
         clientID: clientIDGithub,
         clientSecret: clientSecretGithub,
-        callbackURL: `${callBackUrl}/auth/github/callback`
+        callbackURL: `${callBackUrlGithub}/auth/github/callback`
     },
     async function(accesToken, refreshToken, profile, done){
         try {
