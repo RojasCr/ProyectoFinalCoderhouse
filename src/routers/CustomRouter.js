@@ -1,5 +1,6 @@
 const {Router} = require("express");
 const passport = require("passport");
+const redirector = require("../middlewares/autentication.middleware");
 
 class CustomRouter{
     constructor(){
@@ -56,6 +57,8 @@ class CustomRouter{
     }
 
     handlePolicies = (policies) => {
+
+        redirector(req, res, next);
         if(policies[0] === "PUBLIC"){
             return (req, res, next) => {
                 next();
