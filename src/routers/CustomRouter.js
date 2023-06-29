@@ -19,7 +19,7 @@ class CustomRouter{
     }
 
     get(path, policies,...callbacks){
-        this.router.get(path, this.handlePolicies(policies), this.generateCustomResponses,this.applyCallbacks(callbacks));
+        this.router.get(path, this.redirector, this.handlePolicies(policies), this.generateCustomResponses,this.applyCallbacks(callbacks));
     }
 
     post(path, policies, ...callbacks){
@@ -56,9 +56,18 @@ class CustomRouter{
         next();
     }
 
+    redirector = (req, res, next) => {
+        if(!req.cookies.jwt){
+            return res.redirect("/login")
+        }
+        
+        if(req.cookies.user){
+            return next();
+        }
+    }
+
     handlePolicies = (policies) => {
 
-        redirector(req, res, next);
         if(policies[0] === "PUBLIC"){
             return (req, res, next) => {
                 next();
