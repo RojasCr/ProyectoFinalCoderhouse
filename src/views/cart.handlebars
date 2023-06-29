@@ -12,11 +12,11 @@
             <li class="list-group-item list-group-item-action">Stock: {{product.stock}}</li>
         </ul>
 
-        <button value="{{product.id}}" id="deleteBtn" class="btn btn-secondary">Eliminar del carrito</button>
+        <button value={{product.id}} id="deleteBtn" class="btn btn-secondary">Eliminar del carrito</button>
         {{/each}}
 
         {{#if cart.products}}
-        <button value="{{cart.id}}" id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
+        <button value={{cart.id}} id="purchaseBtn" class="btn btn-primary">Finalizar compra</button>
         {{else}}
         <h3>¡No hay productos en tu carrito!</h3>       
         {{/if}}
