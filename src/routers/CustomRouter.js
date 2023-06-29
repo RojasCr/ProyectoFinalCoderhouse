@@ -61,6 +61,11 @@ class CustomRouter{
         if(req.path !== "/login" && !req.cookies.jwt){
             return res.redirect("/login")
         }
+
+        if(req.path === "/login" && req.cookies.jwt){
+            return res.redirect("/products")
+        }
+        
         return next();
     }
 
