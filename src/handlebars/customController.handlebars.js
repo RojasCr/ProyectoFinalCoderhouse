@@ -33,7 +33,7 @@ class HandlebarsRouter extends CustomRouter{
             }
         })
 
-        this.get("/", ["PUBLIC"], /*redirector,*/ (req, res) => {
+        this.get("/", ["PUBLIC"], (req, res) => {
             try{
                 res.redirect("/products");
             } catch(err){
@@ -41,7 +41,7 @@ class HandlebarsRouter extends CustomRouter{
             }
         });
 
-        this.get("/products", ["USER", "ADMIN", "PREMIUM"], /*redirector,*/ async(req, res) => {
+        this.get("/products", ["USER", "ADMIN", "PREMIUM"], async(req, res) => {
             let { limit, page, sort, query } = req.query;
             const user = req.cookies.user;
             

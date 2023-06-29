@@ -65,7 +65,7 @@ class AuthRouter extends CustomRouter{
     
         });
 
-        this.post("/sendMail", ["USER", "PREMIUM"], async(req, res) => {
+        this.post("/sendMail", ["PUBLIC"], async(req, res) => {
             const { email } = req.body
 
             const user = await Users.findUser(email);
