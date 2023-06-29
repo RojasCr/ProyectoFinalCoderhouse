@@ -22,7 +22,7 @@ const jwt = require("jsonwebtoken")
 
 const { cryptPassword, compareCrypt } = require("../utils/cryptPassword");
 const { clientIDGoogle, clientSecretGoogle } = require("./google.config");
-const { clientIDGithub, clientSecretGithub } = require("./github.config");
+const { clientIDGithub, clientSecretGithub, callBackUrl } = require("./github.config");
 
 const cookieExtractor = require("../utils/cookieExtractorJwt");
 
@@ -40,7 +40,7 @@ const initializePassport = () => {
     passport.use(new GoogleStrategy({
         clientID: clientIDGoogle,
         clientSecret: clientSecretGoogle,
-        callbackURL: "/auth/google/callback",
+        callbackURL: `${callBackUrl}/auth/google/callback`,
         
     },
     async function(accesToken, refreshToken, profile, done){
@@ -81,7 +81,7 @@ const initializePassport = () => {
     passport.use(new GithubStrategy({
         clientID: clientIDGithub,
         clientSecret: clientSecretGithub,
-        callbackURL: "https://dianshop.up.railway.app/auth/github/callback"
+        callbackURL: `${callBackUrl}/auth/github/callback`
     },
     async function(accesToken, refreshToken, profile, done){
         try {
