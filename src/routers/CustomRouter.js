@@ -57,7 +57,7 @@ class CustomRouter{
     }
 
     redirector = (req, res, next) => {
-        const authPaths = ["/google", "/google/callback", "/github", "/github/callback"]
+        const authPaths = ["/restore", "/signup","/google", "/google/callback", "/github", "/github/callback"]
 
         if(authPaths.includes(req.path)){
             console.log(req.path)
