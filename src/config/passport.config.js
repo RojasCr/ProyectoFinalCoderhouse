@@ -40,7 +40,7 @@ const initializePassport = () => {
     passport.use(new GoogleStrategy({
         clientID: clientIDGoogle,
         clientSecret: clientSecretGoogle,
-        callbackURL: `${callBackUrl}/auth/google/callback`,
+        callbackURL: `${callBackUrl || ""}/auth/google/callback`,
         
     },
     async function(accesToken, refreshToken, profile, done){
